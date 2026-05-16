@@ -1,78 +1,132 @@
-<?php require_once __DIR__ . '/../includes/db.php'; ?>
+<?php
+require_once __DIR__ . '/../includes/db.php';
+?>
 <!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NovaCode — Главная</title>
+    <title>NovaCode</title>
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
 
-<header>
+<header class="top-header">
     <div class="container header-container">
-        <div class="logo">
-            <span style="font-size: 1.8rem;">◲</span> NovaCode
-        </div>
-        <nav>
-            <ul>
-                <li><a href="index.php">главная</a></li>
-                <li><a href="catalog.php">курсы</a></li>
-                <li><a href="profile.php">настройки</a></li>
-            </ul>
+        <a href="index.php" class="logo">
+            <span class="logo-icon">◲</span> NovaCode
+        </a>
+        <nav class="main-nav">
+            <a href="index.php">главная</a>
+            <a href="catalog.php" class="active">курсы</a>
+            <a href="profile.php">настройки</a>
         </nav>
+        <button class="btn-consult">консультация</button>
     </div>
 </header>
 
-<div class="search-strip">
+<div class="search-bar">
     <div class="container search-container">
         <div class="search-input-wrapper">
-            <span class="search-icon">⚲</span>
-            <input type="text" placeholder="">
+            <span class="search-icon">🔍</span>
+            <input type="text" id="searchInput" placeholder="Поиск курсов (например, Python)...">
         </div>
-        <div class="filters-toggle">
-            <span style="font-size: 1.2rem; font-weight: bold;">≡</span> фильтры
+        <div class="filter-wrapper">
+            <select id="categoryFilter" class="filter-select">
+                <option value="">Все направления</option>
+                <option value="Python">Python</option>
+                <option value="C++">C++</option>
+                <option value="C#">C#</option>
+                <option value="JavaScript">JavaScript</option>
+                <option value="HTML">HTML & CSS</option>
+                <option value="Java">Java</option>
+            </select>
         </div>
     </div>
 </div>
 
-<main class="hero-section">
-    <div class="container hero-container">
+<main class="catalog-section">
+    <div class="container">
+        <h1 class="page-title">Доступные направления</h1>
         
-        <div class="hero-form-box">
-            <h3>Зарегистрироваться / Войти</h3>
-            <form action="api/auth_handler.php" method="POST">
-                <div class="input-group">
-                    <label>Имя</label>
-                    <input type="text" name="name" required>
-                </div>
-                <div class="input-group">
-                    <label>Почта</label>
-                    <input type="email" name="email" required>
-                </div>
-                <div class="input-group">
-                    <label>Пароль</label>
-                    <input type="password" name="password" required>
-                </div>
-                <div class="input-group">
-                    <label>Повторить пароль</label>
-                    <input type="password" name="password_repeat" required>
-                </div>
-                <div class="forgot-password">
-                    <a href="#">Забыли пароль?</a>
-                </div>
-            </form>
-        </div>
-
-        <div class="hero-text">
-            <h1>NovaCode: Твой<br>квантовый скачок в IT</h1>
-            <p>Профессиональная экосистема для<br>изучения современных технологий.<br>Мы превращаем сложные<br>концепции в понятный код, а<br>новичков — в востребованных<br>инженеров.</p>
-        </div>
-
+        <div id="coursesContainer" class="courses-grid">
+            </div>
     </div>
-    
-    <div class="hero-bottom-shape"></div>
 </main>
+
+<footer class="app-footer">
+    <div class="container footer-inner">
+        <div class="footer-left">© 2026 NovaCode Team</div>
+        <div class="footer-right">Панель управления</div>
+    </div>
+</footer>
+
+
+<script>
+// Получаем доступ к элементам DOM
+const searchInput = document.getElementById('searchInput');
+const categoryFilter = document.getElementById('categoryFilter');
+const container = document.getElementById('coursesContainer');
+
+/**
+ * Функция отправки запроса к API и отрисовки карточек
+ */
+async function fetchCourses() {
+    const query = searchInput.value;
+    const category = categoryFilter.value;
+
+    try {
+        // Формируем URL-запрос к обработчику в папке includes
+        const url = `../includes/api/search.php?q=${encodeURIComponent(query)}&cat=${encodeURIComponent(category)}`;
+        const response = await fetch(url);
+        
+        // Преобразуем полученный от бэкенда ответ в массив объектов
+        const courses = await response.json();
+
+        // Полностью очищаем контейнер перед выводом новых результатов
+        container.innerHTML = '';
+
+        // Если в БД не нашлось совпадений
+        if (courses.length === 0) {
+            container.innerHTML = '<p class="no-results">По вашему запросу ничего не найдено.</p>';
+            return;
+        }
+
+        // Проходим циклом по каждому курсу из массива данных
+        courses.forEach(course => {
+            // Создаем HTML-элемент для карточки
+            const card = document.createElement('div');
+            card.className = 'course-card'; // Класс для стилизации в твоем CSS
+            
+            // Заполняем карточку шаблоном данных из таблицы БД
+            card.innerHTML = `
+                <div class="card-header">
+                    <span class="course-badge">${course.category}</span>
+                    <h3 class="course-title">${course.title}</h3>
+                </div>
+                <p class="course-desc">${course.description}</p>
+                <div class="card-footer">
+                    <span class="course-price">${course.price} ₽</span>
+                    <a href="course.php?id=${course.id}" class="btn-more">Подробнее</a>
+                </div>
+            `;
+            
+            // Встраиваем готовую карточку в сетку на странице
+            container.appendChild(card);
+        });
+    } catch (error) {
+        console.error('Критическая ошибка поиска:', error);
+        container.innerHTML = '<p class="error-message">Произошла ошибка при загрузке данных с сервера.</p>';
+    }
+}
+
+// Вешаем слушатели событий на ввод текста и выбор фильтра
+searchInput.addEventListener('input', fetchCourses);
+categoryFilter.addEventListener('change', fetchCourses);
+
+// Инициализируем вывод всех курсов сразу при открытии страницы
+document.addEventListener('DOMContentLoaded', fetchCourses);
+</script>
 
 </body>
 </html>
