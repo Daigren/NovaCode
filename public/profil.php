@@ -36,51 +36,12 @@ require_once __DIR__ . '/../includes/db.php';
     </header>
 
     <main>
-        <div class="search-bar">
-            <div class="container search-container">
-                <form action="catalog.php" method="GET" style="width: 100%; display: flex; gap: 20px; align-items: center;">
-                    <div class="search-input-wrapper" style="flex: 1;">
-                        <span class="search-icon">
-                            <img src="./assets/images/search.svg" alt="search">
-                        </span>
-                        <input type="text" name="q" id="searchInput" placeholder="Найти курс">
-                    </div>
-                    
-                    <div class="filter-wrapper" style="position: relative;">
-    
-                        <button type="button" class="filter-btn" id="openFiltersBtn">≡ фильтры</button>
-                        
-                        <div id="filterMenu" class="filter-dropdown">
-                            <div class="filter-header">Категории</div>
-                            
-                            <label class="filter-option">
-                                <input type="radio" name="cat" value="" checked>
-                                <span>Все направления</span>
-                            </label>
-                            <label class="filter-option">
-                                <input type="radio" name="cat" value="Python">
-                                <span>Python</span>
-                            </label>
-                            <label class="filter-option">
-                                <input type="radio" name="cat" value="C++">
-                                <span>C++</span>
-                            </label>
-                            <label class="filter-option">
-                                <input type="radio" name="cat" value="C#">
-                                <span>C#</span>
-                            </label>
-                            <label class="filter-option">
-                                <input type="radio" name="cat" value="Java">
-                                <span>Java</span>
-                            </label>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
+        <section class="mainContent_2" id="profilContent">
+            <img src="./assets/images/avatar.svg" alt="profile" class="profileImage">
 
-        
-        
+            <h4>Имя пользователя</h4>
+            <input type="text" placeholder="Введите имя пользователя" class="profileInput">
+        </section>
     </main>
 
 </body>

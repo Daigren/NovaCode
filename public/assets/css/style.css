@@ -102,6 +102,31 @@ header a:hover {
     font-family: 'Black Han Sans', sans-serif;
 }
 
+.mainContent_2 {
+    margin: 0px 460px;
+    padding: 100px;
+    border: 1px solid #636363;
+}
+
+.coursesTitle {
+    font-size: 36px;
+    font-family: 'Black Han Sans', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#profilContent {
+    margin: 40px 460px;
+    padding: 100px;
+}
+
+.profileInput {
+    background-color: rgba(255, 255, 255, 0);
+    border-radius: 3px;
+    border-color: #616161;
+}
+
 #aiAdvisorSection {
     margin: 0px 460px;
     padding: 0px 100px;

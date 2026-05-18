@@ -9,7 +9,6 @@ require_once __DIR__ . '/../includes/db.php';
     <title>NovaCode</title>
     <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
     <link rel="stylesheet" href="assets/css/style.css">
-    <link rel="stylesheet" href="assets/css/catalog.css">
     <script src="assets/js/filter.js" defer></script>
     <link rel="icon" type="image/svg+xml" href="assets/images/main.svg">
 
@@ -82,13 +81,13 @@ require_once __DIR__ . '/../includes/db.php';
 
         <h1 class="coursesTitle">Онлайн-курсы</h1>
 
-        <section id="mainContent_2">
+        <section class="mainContent_2">
             
         </section>
 
         <h1 class="coursesTitle">Офлайн-курсы</h1>
 
-        <section id="mainContent_3">
+        <section class="mainContent_2">
             
         </section>
     </main>
