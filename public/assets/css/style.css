@@ -67,6 +67,10 @@ header a:hover {
     color: #b4b4b4;
 }
 
+.userInfo {
+    margin-bottom: 5px;
+}
+
 #consultation {
     background-color: rgba(255, 255, 255, 0);
     border: 1px solid #ffffff;
@@ -108,6 +112,13 @@ header a:hover {
     border: 1px solid #636363;
 }
 
+.mainContent_3 {
+    display: flex;
+    margin: 40px 460px;
+    padding: 100px;
+    border: 1px solid #636363;
+}
+
 .coursesTitle {
     font-size: 36px;
     font-family: 'Black Han Sans', sans-serif;
@@ -117,14 +128,46 @@ header a:hover {
 }
 
 #profilContent {
-    margin: 40px 460px;
-    padding: 100px;
+    width: 286px;
 }
 
 .profileInput {
+    color: white;
     background-color: rgba(255, 255, 255, 0);
-    border-radius: 3px;
-    border-color: #616161;
+    border: 2px solid #333; 
+    outline: none;
+    border-radius: 5px;
+    padding: 7px;
+    width: 268px;
+    transition: border-color 0.2s ease;
+}
+
+.profileInput:focus {
+    border: 2px solid #727272;
+}
+
+.bioInput {
+    color: white;
+    background-color: rgba(255, 255, 255, 0);
+    border: 2px solid #333; 
+    outline: none;
+    border-radius: 5px;
+    padding: 7px;
+    resize: none;
+    width: 268px;
+    height: 100px;
+    transition: border-color 0.2s ease;
+}
+
+.bioInput:focus {
+    border: 2px solid #727272;
+}
+
+#myCoursesSection {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    text-align: center;
 }
 
 #aiAdvisorSection {

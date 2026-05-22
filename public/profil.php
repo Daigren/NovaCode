@@ -10,6 +10,7 @@ require_once __DIR__ . '/../includes/db.php';
     <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
     <link rel="stylesheet" href="assets/css/style.css">
     <script src="assets/js/filter.js" defer></script>
+    <script src="assets/js/avatar.js" defer></script>
     <link rel="icon" type="image/svg+xml" href="assets/images/main.svg">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -35,12 +36,31 @@ require_once __DIR__ . '/../includes/db.php';
         </button>
     </header>
 
-    <main>
-        <section class="mainContent_2" id="profilContent">
-            <img src="./assets/images/avatar.svg" alt="profile" class="profileImage">
+    <main id="mainContentProfil">
+        <section class="mainContent_3">
+            <section id="profilContent">
+                <img src="./assets/images/avatar.svg" alt="profile" class="profileImage">
 
-            <h4>Имя пользователя</h4>
-            <input type="text" placeholder="Введите имя пользователя" class="profileInput">
+                <form action="/upload" method="POST" enctype="multipart/form-data">
+                    <label for="avatar">Выберите изображение:</label>
+                    <input type="file" id="avatar" name="avatar" accept="image/png, image/jpeg, image/webp" required>
+                    
+                    <button type="submit">Загрузить</button>
+                </form>
+
+
+                <h4 class="userInfo">Имя</h4>
+                <input type="text" placeholder="Введите имя пользователя" class="profileInput">
+
+                <h4 class="userInfo">Био</h4>
+                <textarea  maxlength="200" placeholder="Добавить описание" class="bioInput"></textarea>
+            </section>
+
+            <section id="myCoursesSection">
+                <h2>Мои курсы</h2>
+                <div class="myCourses">
+            </section>
+            
         </section>
     </main>
 
