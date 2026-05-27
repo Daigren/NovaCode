@@ -10,6 +10,7 @@ require_once __DIR__ . '/../includes/db.php';
     <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
     <link rel="stylesheet" href="assets/css/style.css">
     <script src="assets/js/filter.js" defer></script>
+    <script src="assets/js/animations.js" defer></script>
     <link rel="icon" type="image/svg+xml" href="assets/images/main.svg">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -20,16 +21,9 @@ require_once __DIR__ . '/../includes/db.php';
 
     <header>
         <img src="./assets/images/iconHeader.svg" alt="icon">
-        <a href="./index.php">
-            Главная
-        </a>
-        <a href="./catalog.php">
-            Курсы
-        </a>
-        <a href="./profil.php">
-            Профиль
-        </a>
-
+        <a href="./index.php">Главная</a>
+        <a href="./catalog.php">Курсы</a>
+        <a href="./profil.php">Профиль</a>
         <button id="consultation" onclick="window.location.href='./consultation.php';">
             консультация
         </button>
@@ -47,32 +41,15 @@ require_once __DIR__ . '/../includes/db.php';
                     </div>
                     
                     <div class="filter-wrapper" style="position: relative;">
-    
                         <button type="button" class="filter-btn" id="openFiltersBtn">≡ фильтры</button>
                         
                         <div id="filterMenu" class="filter-dropdown">
                             <div class="filter-header">Категории</div>
-                            
-                            <label class="filter-option">
-                                <input type="radio" name="cat" value="" checked>
-                                <span>Все направления</span>
-                            </label>
-                            <label class="filter-option">
-                                <input type="radio" name="cat" value="Python">
-                                <span>Python</span>
-                            </label>
-                            <label class="filter-option">
-                                <input type="radio" name="cat" value="C++">
-                                <span>C++</span>
-                            </label>
-                            <label class="filter-option">
-                                <input type="radio" name="cat" value="C#">
-                                <span>C#</span>
-                            </label>
-                            <label class="filter-option">
-                                <input type="radio" name="cat" value="Java">
-                                <span>Java</span>
-                            </label>
+                            <label class="filter-option"><input type="radio" name="cat" value="" checked><span>Все направления</span></label>
+                            <label class="filter-option"><input type="radio" name="cat" value="Python"><span>Python</span></label>
+                            <label class="filter-option"><input type="radio" name="cat" value="C++"><span>C++</span></label>
+                            <label class="filter-option"><input type="radio" name="cat" value="C#"><span>C#</span></label>
+                            <label class="filter-option"><input type="radio" name="cat" value="Java"><span>Java</span></label>
                         </div>
                     </div>
                 </form>
@@ -80,44 +57,49 @@ require_once __DIR__ . '/../includes/db.php';
         </div>
 
         <section id="mainContent">
-            <h1>
-                NovaCode: Your Quantum Leap into IT
-            </h1>
+            <video autoplay muted loop playsinline id="bg-video">
+                <source src="./assets/videos/earth-ascii.mp4" type="video/mp4">
+            </video>
 
-            <div id="buttonsWrapper">
-                <button class="view_courses">
-                    посмотреть курсы
-                </button>
-                
-                <button class="consultation_2">
-                    консультация
-                </button>
+            <div class="content-wrapper fade-element">
+                <h1>NovaCode: Your Quantum Leap into IT</h1>
+
+                <div id="buttonsWrapper">
+                    <button class="view_courses" onclick="window.location.href='./catalog.php';">
+                        посмотреть курсы
+                    </button>
+                    
+                    <button class="consultation_2" onclick="window.location.href='./consultation.php';">
+                        консультация
+                    </button>
+                </div>
+
+                <h3 id="description">
+                    Профессиональная экосистема для изучения современных технологий. Мы превращаем сложные концепции в понятный код, а новичков — в востребованных инженеров.
+                </h3>
             </div>
-
-            <h3 id="description">
-                Профессиональная экосистема для изучения современных технологий. Мы превращаем сложные концепции в понятный код, а новичков — в востребованных инженеров.
-            <h3>
         </section>
 
         <section id="aiAdvisorSection">
-            <h2 id="ai-advisor">AI-Mentor NovaCode</h2>
+            <h2 id="ai-advisor" class="fade-element">AI-Mentor NovaCode</h2>
 
-            <h3>
+            <h3 class="fade-element" style="transition-delay: 0.2s;">
                 Проконсультируйся с нашим ИИ-ментором, чтобы подобрать идеальный язык программирования для старта в IT. Просто расскажи о своих интересах, и мы поможем тебе сделать первый шаг к карьере мечты!
             </h3>
 
-            <section id="videoSection">
+            <section id="videoSection" class="fade-element" style="transition-delay: 0.4s;">
                 <video autoplay muted loop playsinline width="100%">
                     <source src="assets/videos/main-intro.mp4" type="video/mp4">
                 </video>
-                <dev>
+                
+                <div> 
                     <p>
                         Наш ИИ-ментор — это твой персональный гид в мире программирования. Он поможет тебе выбрать язык, который идеально подходит для твоих целей, будь то разработка игр, веб-программирование или анализ данных. Просто расскажи о своих интересах, и он подберет для тебя идеальный путь в IT!
                     </p>
                     <button class="consultation_3" style="margin-top: 20px;" onclick="window.location.href='./consultation.php';">
                         начать консультацию
                     </button>
-                </dev>
+                </div>
             </section>
         </section>
         

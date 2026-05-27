@@ -10,6 +10,7 @@ require_once __DIR__ . '/../includes/db.php';
     <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
     <link rel="stylesheet" href="assets/css/style.css">
     <script src="assets/js/ai-chat.js" defer></script>
+    <script src="assets/js/animations.js" defer></script>
     <link rel="icon" type="image/svg+xml" href="assets/images/main.svg">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -37,7 +38,7 @@ require_once __DIR__ . '/../includes/db.php';
 
     <main class="ai-advisor-section">
         <div class="container">
-            <div class="ai-chat-window">
+            <div class="ai-chat-window fade-element">
                 <div class="chat-header">
                     <span class="neon-dot"></span> ИИ-Ментор NovaCode
                 </div>
