@@ -1,1 +1,1 @@
-.\public\assets\videos\preview.gif
+![NovaCode](assets/videos/preview.gif)
