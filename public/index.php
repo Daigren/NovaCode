@@ -1,4 +1,6 @@
 <?php
+session_start(); 
+
 require_once __DIR__ . '/../includes/db.php';
 ?>
 <!DOCTYPE html>
@@ -23,7 +25,13 @@ require_once __DIR__ . '/../includes/db.php';
         <img src="./assets/images/iconHeader.svg" alt="icon">
         <a href="./index.php">Главная</a>
         <a href="./catalog.php">Курсы</a>
-        <a href="./profil.php">Профиль</a>
+        
+        <?php if (isset($_SESSION['user_id'])): ?>
+            <a href="./profil.php">Профиль</a>
+        <?php else: ?>
+            <a href="./register.php">Профиль</a>
+        <?php endif; ?>
+
         <button id="consultation" onclick="window.location.href='./consultation.php';">
             консультация
         </button>
