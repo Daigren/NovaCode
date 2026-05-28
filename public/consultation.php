@@ -21,17 +21,16 @@ require_once __DIR__ . '/../includes/db.php';
 
     <header>
         <img src="./assets/images/iconHeader.svg" alt="icon">
-        <a href="index.php">
-            Главная
-        </a>
-        <a href="./catalog.php">
-            Курсы
-        </a>
-        <a href="./profil.php">
-            Профиль
-        </a>
+        <a href="./index.html">Главная</a>
+        <a href="./catalog.html">Курсы</a>
+        
+        <?php if (isset($_SESSION['user_id'])): ?>
+            <a href="./profil.php">Профиль</a>
+        <?php else: ?>
+            <a href="./register.php">Профиль</a>
+        <?php endif; ?>
 
-        <button id="consultationOpen" onclick="window.location.href='./consultation.php';">
+        <button id="consultation" onclick="window.location.href='./consultation.php';">
             консультация
         </button>
     </header>
