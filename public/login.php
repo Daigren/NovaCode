@@ -75,7 +75,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
     </header>
 
     <main class="auth-container">
-        <section class="auth-card fade-element">
+        <section class="authorization">
             <h2>Вход в аккаунт</h2>
 
             <?php if (!empty($error_message)): ?>
@@ -87,20 +87,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
             <form action="login.php" method="POST">
                 
                 <div class="form-group">
-                    <label for="email">Email</label>
-                    <input type="email" id="email" name="email" placeholder="example@mail.ru" required value="<?= isset($_POST['email']) ? htmlspecialchars($_POST['email']) : '' ?>">
+                    <label for="email" class="userInfo">Email</label>
+                    <input type="email" id="email" name="email" class="profileInput" autocomplete="off" placeholder="example@mail.ru" required value="<?= isset($_POST['email']) ? htmlspecialchars($_POST['email']) : '' ?>">
                 </div>
 
                 <div class="form-group">
-                    <label for="password">Пароль</label>
-                    <input type="password" id="password" name="password" placeholder="Введите пароль" required>
+                    <label for="password" class="userInfo">Пароль</label>
+                    <input type="password" id="password" name="password" class="profileInput" autocomplete="off" placeholder="Введите пароль" required>
                 </div>
 
-                <button type="submit" name="login" class="btn-auth">Войти</button>
+                <button type="submit" name="login" class="button-changes">Войти</button>
             </form>
 
             <div class="auth-links">
-                Нет аккаунта? <a href="register.php">Зарегистрироваться</a>
+                Нет аккаунта? <a href="register.php" class="login-link">Зарегистрироваться</a>
             </div>
         </section>
     </main>
