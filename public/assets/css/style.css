@@ -68,7 +68,8 @@ header a:hover {
 }
 
 .userInfo {
-    margin-bottom: 5px;
+    margin-top: 20px;
+    margin-bottom: 10px;
 }
 
 #consultation {
@@ -144,6 +145,50 @@ header a:hover {
     margin: 40px 460px;
     padding: 100px;
     border: 1px solid #636363;
+}
+
+.authorization {
+    margin: 40px 460px;
+    padding: 100px;
+    border: 1px solid #636363;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.button-changes {
+    width: 200px;
+    background-color: rgba(255, 255, 255, 0);
+    border: 1px solid #ffffff;
+    border-radius: 5px;
+    color: white;
+    font-size: 13px;
+    padding: 10px 0px;
+    transition: all 0.5s ease; 
+    margin: 15px 0px;
+}
+
+.button-changes:hover {
+    background-color: rgb(255, 255, 255);
+    color: black;
+}
+
+.login-link{
+    color: var(--neon-cyan);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s;
+}
+
+.btn-logout {
+    background-color: rgba(255, 255, 255, 0);
+    color: red;
+    border: none;
 }
 
 .coursesTitle {

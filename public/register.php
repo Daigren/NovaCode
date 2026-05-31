@@ -82,7 +82,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['register'])) {
     </header>
 
     <main id="mainContentProfil" class="auth-container">
-        <section class="mainContent_3">
+        <section class="authorization">
             <h2>Регистрация</h2>
 
             <?php if (!empty($error_message)): ?>
@@ -93,30 +93,30 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['register'])) {
 
             <form action="register.php" method="POST">
                 <div class="form-group">
-                    <label for="username">Имя пользователя</label>
-                    <input type="text" id="username" name="username" placeholder="Придумайте никнейм" required value="<?= isset($_POST['username']) ? htmlspecialchars($_POST['username']) : '' ?>">
+                    <label for="username" class="userInfo">Имя пользователя</label>
+                    <input type="text" id="username" name="username" class="profileInput" placeholder="Придумайте никнейм" required value="<?= isset($_POST['username']) ? htmlspecialchars($_POST['username']) : '' ?>">
                 </div>
 
                 <div class="form-group">
-                    <label for="email">Email</label>
-                    <input type="email" id="email" name="email" placeholder="example@mail.ru" required value="<?= isset($_POST['email']) ? htmlspecialchars($_POST['email']) : '' ?>">
+                    <label for="email" class="userInfo">Email</label>
+                    <input type="email" id="email" name="email" class="profileInput" placeholder="example@mail.ru" required value="<?= isset($_POST['email']) ? htmlspecialchars($_POST['email']) : '' ?>">
                 </div>
 
                 <div class="form-group">
-                    <label for="password">Пароль</label>
-                    <input type="password" id="password" name="password" placeholder="Минимум 6 символов" required>
+                    <label for="password" class="userInfo">Пароль</label>
+                    <input type="password" id="password" name="password" class="profileInput" placeholder="Минимум 6 символов" required>
                 </div>
 
                 <div class="form-group">
-                    <label for="password_confirm">Подтверждение пароля</label>
-                    <input type="password" id="password_confirm" name="password_confirm" placeholder="Повторите пароль" required>
+                    <label for="password_confirm" class="userInfo">Подтверждение пароля</label>
+                    <input type="password" id="password_confirm" name="password_confirm" class="profileInput" placeholder="Повторите пароль" required>
                 </div>
 
-                <button type="submit" name="register" class="btn-auth">Создать аккаунт</button>
+                <button type="submit" name="register" class="button-changes">Создать аккаунт</button>
             </form>
 
             <div class="auth-links">
-                Уже есть аккаунт? <a href="login.php">Войти</a>
+                Уже есть аккаунт? <a href="login.php" class="login-link" >Войти</a>
             </div>
         </section>
     </main>

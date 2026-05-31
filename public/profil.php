@@ -103,13 +103,13 @@ $currentUser = $stmt->fetch();
                         <textarea name="bio" maxlength="200" placeholder="Добавить описание" class="bioInput"></textarea>
                     </div>
 
-                    <button type="submit" name="update_profile" style="margin-top: 15px; padding: 12px; background-color: var(--neon-cyan); color: #000; border: none; border-radius: 6px; font-weight: bold; cursor: pointer;">
+                    <button type="submit" name="update_profile" class="button-changes">
                         Сохранить изменения
                     </button>
                 </form>
 
-                <button onclick="window.location.href='logout.php';" class="btn-logout" style="margin-top: 15px;">
-                    Выйти из аккаунта
+                <button onclick="window.location.href='logout.php';" class="btn-logout">
+                    Выйти
                 </button>
             </section>
 
