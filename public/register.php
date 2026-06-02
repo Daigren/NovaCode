@@ -76,7 +76,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['register'])) {
             <a href="./register.php">Профиль</a>
         <?php endif; ?>
 
-        <button id="consultation" onclick="window.location.href='./consultation.php';">
+        <button id="consultation" onclick="window.location.href='./consultation.html';">
             консультация
         </button>
     </header>
