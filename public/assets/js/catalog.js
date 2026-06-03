@@ -13,8 +13,8 @@ document.addEventListener("DOMContentLoaded", function() {
         const category = checkedRadio ? checkedRadio.value : '';
 
         try {
-            // Отправляем GET запрос с параметрами фильтра
-            const response = await fetch(`api/courses.php?q=${encodeURIComponent(query)}&cat=${encodeURIComponent(category)}`);
+            // ИСПРАВЛЕНИЕ: Добавили ../ перед api
+            const response = await fetch(`../api/courses.php?q=${encodeURIComponent(query)}&cat=${encodeURIComponent(category)}`);
             const data = await response.json();
 
             if (data.status === 'success') {
@@ -37,7 +37,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
         coursesArray.forEach(course => {
             const card = document.createElement('div');
-            card.className = 'course-card fade-element visible'; // Добавляем visible, чтобы они не скрылись
+            card.className = 'course-card fade-element visible'; 
             card.innerHTML = `
                 <div class="course-badge">${course.category}</div>
                 <h3 class="course-title">${course.title}</h3>
@@ -57,7 +57,8 @@ document.addEventListener("DOMContentLoaded", function() {
             const type = document.getElementById('type').value;
 
             try {
-                const response = await fetch('api/courses.php', {
+                // ИСПРАВЛЕНИЕ: Добавили ../ перед api
+                const response = await fetch('../api/courses.php', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ title, category, type })
@@ -68,14 +69,13 @@ document.addEventListener("DOMContentLoaded", function() {
                 if (data.status === 'success') {
                     adminMessage.style.color = 'var(--neon-cyan)';
                     adminMessage.innerText = data.message;
-                    addCourseForm.reset(); // Очищаем форму
-                    fetchCourses(); // Автоматически обновляем список курсов!
+                    addCourseForm.reset(); 
+                    fetchCourses(); 
                 } else {
                     adminMessage.style.color = '#ff4444';
                     adminMessage.innerText = data.message;
                 }
 
-                // Убираем сообщение через 3 секунды
                 setTimeout(() => adminMessage.innerText = '', 3000);
 
             } catch (error) {
@@ -84,19 +84,15 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 
-    // 4. СЛУШАТЕЛИ ДЛЯ ПОИСКА И ФИЛЬТРОВ (Динамическое обновление)
-    
-    // Обновляем курсы при каждом вводе символа в строку поиска
+    // 4. СЛУШАТЕЛИ ДЛЯ ПОИСКА И ФИЛЬТРОВ
     searchInput.addEventListener('input', fetchCourses);
 
-    // Обновляем курсы при переключении радио-кнопок категорий
     categoryRadios.forEach(radio => {
         radio.addEventListener('change', fetchCourses);
     });
 
-    // Остановка стандартной отправки формы поиска при нажатии Enter
     document.getElementById('searchForm').addEventListener('submit', e => e.preventDefault());
 
-    // 5. ПЕРВИЧНАЯ ЗАГРУЗКА ПРИ ОТКРЫТИИ СТРАНИЦЫ
+    // 5. ПЕРВИЧНАЯ ЗАГРУЗКА
     fetchCourses();
 });

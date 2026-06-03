@@ -1,4 +1,4 @@
 Главная страница:
 http://localhost/it-courses/public/index.html
 
-includes/secrets.php
+api/secrets.php

@@ -1,18 +1,17 @@
-<?php
-require_once __DIR__ . '/../includes/db.php';
-?>
 <!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NovaCode</title>
+    <title>NovaCode - Консультация</title>
     <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
     <link rel="stylesheet" href="assets/css/style.css">
+    
+    <script src="assets/js/header.js" defer></script>
     <script src="assets/js/ai-chat.js" defer></script>
     <script src="assets/js/animations.js" defer></script>
+    
     <link rel="icon" type="image/svg+xml" href="assets/images/main.svg">
-
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&display=swap" rel="stylesheet">
@@ -24,11 +23,7 @@ require_once __DIR__ . '/../includes/db.php';
         <a href="./index.html">Главная</a>
         <a href="./catalog.html">Курсы</a>
         
-        <?php if (isset($_SESSION['user_id'])): ?>
-            <a href="./profil.php">Профиль</a>
-        <?php else: ?>
-            <a href="./register.php">Профиль</a>
-        <?php endif; ?>
+        <a href="#" id="navProfileLink" style="opacity: 0; transition: opacity 0.3s ease;">Профиль</a>
 
         <button id="consultation" onclick="window.location.href='./consultation.php';">
             консультация

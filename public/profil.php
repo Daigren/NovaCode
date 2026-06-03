@@ -30,13 +30,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_profile'])) {
             $message = "<div style='color: var(--neon-cyan); margin-bottom: 15px;'>Пароль успешно изменен!</div>";
         }
         
-
     } catch (PDOException $e) {
         $message = "<div style='color: #ff4444; margin-bottom: 15px;'>Ошибка базы данных: " . $e->getMessage() . "</div>";
     }
 }
 
-$stmt = $pdo->prepare("SELECT username, email FROM users WHERE id = :id");
+// ИСПРАВЛЕНИЕ 1: Теперь мы достаем все данные (включая role и bio)
+$stmt = $pdo->prepare("SELECT * FROM users WHERE id = :id");
 $stmt->execute(['id' => $user_id]);
 $currentUser = $stmt->fetch();
 ?>
@@ -48,10 +48,12 @@ $currentUser = $stmt->fetch();
     <title>NovaCode - Профиль</title>
     <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
     <link rel="stylesheet" href="assets/css/style.css">
+    
+    <script src="assets/js/header.js" defer></script>
     <script src="assets/js/filter.js" defer></script>
     <script src="assets/js/avatar.js" defer></script>
+    
     <link rel="icon" type="image/svg+xml" href="assets/images/main.svg">
-
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&display=swap" rel="stylesheet">
@@ -63,11 +65,7 @@ $currentUser = $stmt->fetch();
         <a href="./index.html">Главная</a>
         <a href="./catalog.html">Курсы</a>
         
-        <?php if (isset($_SESSION['user_id'])): ?>
-            <a href="./profil.php">Профиль</a>
-        <?php else: ?>
-            <a href="./register.php">Профиль</a>
-        <?php endif; ?>
+        <a href="#" id="navProfileLink" style="opacity: 0; transition: opacity 0.3s ease;">Профиль</a>
 
         <button id="consultation" onclick="window.location.href='./consultation.php';">
             консультация
@@ -100,7 +98,7 @@ $currentUser = $stmt->fetch();
 
                     <div>
                         <h4 class="userInfo">Био</h4>
-                        <textarea name="bio" maxlength="200" placeholder="Добавить описание" class="bioInput"></textarea>
+                        <textarea name="bio" maxlength="200" placeholder="Добавить описание" class="bioInput"><?= htmlspecialchars($currentUser['bio'] ?? '') ?></textarea>
                     </div>
 
                     <button type="submit" name="update_profile" class="button-changes">
@@ -111,11 +109,26 @@ $currentUser = $stmt->fetch();
                 <button onclick="window.location.href='logout.php';" class="btn-logout">
                     Выйти
                 </button>
+
+                <?php if (isset($currentUser['role']) && $currentUser['role'] === 'admin'): ?>
+                    <div class="admin-panel-card" style="margin-top: 30px; padding: 25px; border: 1px solid var(--neon-cyan); border-radius: 12px; background: var(--neon-cyan-dim);">
+                        <h3 style="color: var(--neon-cyan); margin-top: 0; display: flex; align-items: center; gap: 10px;">
+                            <span class="neon-dot" style="display: inline-block; width: 10px; height: 10px; background: var(--neon-cyan); border-radius: 50%; box-shadow: 0 0 10px var(--neon-cyan);"></span>
+                            Режим разработчика
+                        </h3>
+                        <p style="color: var(--text-primary); margin-bottom: 20px;">
+                            У вас есть права администратора. Вы можете проверять новые курсы от пользователей и управлять каталогом.
+                        </p>
+                        <button onclick="window.location.href='admin.html'" style="background: var(--neon-cyan); color: #000; padding: 12px 24px; border: none; border-radius: 6px; font-size: 16px; font-weight: bold; cursor: pointer; transition: all 0.3s ease;">
+                            Открыть панель модерации
+                        </button>
+                    </div>
+                <?php endif; ?>
             </section>
 
             <section id="myCoursesSection">
                 <h2>Мои курсы</h2>
-                <div class="myCourses">
+                <div class="myCourses"></div>
             </section>
             
         </section>
