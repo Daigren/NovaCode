@@ -6,14 +6,12 @@ document.addEventListener("DOMContentLoaded", function() {
     const addCourseForm = document.getElementById('addCourseForm');
     const adminMessage = document.getElementById('adminMessage');
 
-    // 1. ФУНКЦИЯ ЗАГРУЗКИ КУРСОВ ИЗ API
     async function fetchCourses() {
         const query = searchInput.value;
         const checkedRadio = document.querySelector('.category-radio:checked');
         const category = checkedRadio ? checkedRadio.value : '';
 
         try {
-            // ИСПРАВЛЕНИЕ: Добавили ../ перед api
             const response = await fetch(`../api/courses.php?q=${encodeURIComponent(query)}&cat=${encodeURIComponent(category)}`);
             const data = await response.json();
 
@@ -26,9 +24,8 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }
 
-    // 2. ФУНКЦИЯ ОТРИСОВКИ КАРТОЧЕК В HTML
     function renderCourses(coursesArray, container, metaText) {
-        container.innerHTML = ''; // Очищаем контейнер
+        container.innerHTML = '';
 
         if (coursesArray.length === 0) {
             container.innerHTML = '<p style="color: var(--text-secondary); grid-column: 1 / -1;">В этой категории пока нет курсов.</p>';
@@ -42,12 +39,15 @@ document.addEventListener("DOMContentLoaded", function() {
                 <div class="course-badge">${course.category}</div>
                 <h3 class="course-title">${course.title}</h3>
                 <div class="course-meta">${metaText}</div>
+                
+                <button onclick="enrollCourse(${course.id})" style="margin-top: 15px; width: 100%; padding: 10px; background: var(--neon-cyan); color: #000; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; transition: 0.3s;">
+                    Записаться
+                </button>
             `;
             container.appendChild(card);
         });
     }
 
-    // 3. ДОБАВЛЕНИЕ НОВОГО КУРСА
     if (addCourseForm) {
         addCourseForm.addEventListener('submit', async function(e) {
             e.preventDefault();
@@ -57,7 +57,6 @@ document.addEventListener("DOMContentLoaded", function() {
             const type = document.getElementById('type').value;
 
             try {
-                // ИСПРАВЛЕНИЕ: Добавили ../ перед api
                 const response = await fetch('../api/courses.php', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -84,7 +83,6 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 
-    // 4. СЛУШАТЕЛИ ДЛЯ ПОИСКА И ФИЛЬТРОВ
     searchInput.addEventListener('input', fetchCourses);
 
     categoryRadios.forEach(radio => {
@@ -93,6 +91,27 @@ document.addEventListener("DOMContentLoaded", function() {
 
     document.getElementById('searchForm').addEventListener('submit', e => e.preventDefault());
 
-    // 5. ПЕРВИЧНАЯ ЗАГРУЗКА
     fetchCourses();
 });
+
+// ГЛОБАЛЬНАЯ ФУНКЦИЯ ЗАПИСИ НА КУРС
+// (вынесена за пределы DOMContentLoaded, чтобы inline-обработчик onclick мог её найти)
+window.enrollCourse = async function(courseId) {
+    try {
+        const response = await fetch('../api/enroll.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ course_id: courseId })
+        });
+        const data = await response.json();
+        
+        if (data.status === 'success') {
+            alert('Ура! ' + data.message + ' Теперь он доступен в вашем профиле.');
+        } else {
+            alert('Внимание: ' + data.message);
+        }
+    } catch (error) {
+        console.error('Ошибка записи:', error);
+        alert('Произошла ошибка при попытке записаться на курс.');
+    }
+};

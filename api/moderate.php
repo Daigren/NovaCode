@@ -3,7 +3,6 @@ session_start();
 require_once __DIR__ . '/../includes/db.php';
 header('Content-Type: application/json');
 
-// 1. ЖЕСТКАЯ ПРОВЕРКА РОЛИ (Блокпост)
 if (!isset($_SESSION['user_id'])) {
     echo json_encode(["status" => "error", "message" => "Доступ запрещен"]);
     exit();
@@ -18,7 +17,6 @@ if (!$user || $user['role'] !== 'admin') {
     exit();
 }
 
-// 2. ЕСЛИ ЭТО GET-ЗАПРОС: Отдаем список курсов, которые ждут проверки
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     try {
         $stmt = $pdo->query("
@@ -37,11 +35,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     exit();
 }
 
-// 3. ЕСЛИ ЭТО POST-ЗАПРОС: Одобряем или отклоняем курс
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $input = json_decode(file_get_contents('php://input'), true);
     $course_id = $input['course_id'];
-    $action = $input['action']; // 'approve' или 'reject'
+    $action = $input['action']; 
 
     try {
         if ($action === 'approve') {

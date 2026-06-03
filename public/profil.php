@@ -35,7 +35,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_profile'])) {
     }
 }
 
-// ИСПРАВЛЕНИЕ 1: Теперь мы достаем все данные (включая role и bio)
 $stmt = $pdo->prepare("SELECT * FROM users WHERE id = :id");
 $stmt->execute(['id' => $user_id]);
 $currentUser = $stmt->fetch();
@@ -52,6 +51,7 @@ $currentUser = $stmt->fetch();
     <script src="assets/js/header.js" defer></script>
     <script src="assets/js/filter.js" defer></script>
     <script src="assets/js/avatar.js" defer></script>
+    <script src="assets/js/my_courses.js" defer></script>
     
     <link rel="icon" type="image/svg+xml" href="assets/images/main.svg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -93,7 +93,7 @@ $currentUser = $stmt->fetch();
 
                     <div>
                         <h4 class="userInfo">Новый пароль</h4>
-                        <input type="password" name="new_password" class="profileInput" placeholder="Оставьте пустым, чтобы не менять">
+                        <input type="password" name="new_password" class="profileInput" placeholder="******">
                     </div>
 
                     <div>
@@ -108,7 +108,6 @@ $currentUser = $stmt->fetch();
 
                 <?php if (isset($currentUser['role']) && $currentUser['role'] === 'admin'): ?>
                     <div class="admin-panel-card">
-                        
                         <button onclick="window.location.href='admin.html'" class="button-changes">
                             Открыть панель модерации
                         </button>

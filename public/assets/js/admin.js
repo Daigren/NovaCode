@@ -4,7 +4,6 @@ async function loadPendingCourses() {
     const container = document.getElementById('pendingCoursesContainer');
     
     try {
-        // Обращаемся к API модерации (оно отдаст только заявки pending)
         const response = await fetch('../api/moderate.php');
         const data = await response.json();
 
@@ -14,11 +13,10 @@ async function loadPendingCourses() {
         }
 
         if (data.courses.length === 0) {
-            container.innerHTML = '<p style="color: #10b981;">Новых заявок нет. Вы отлично поработали!</p>';
+            container.innerHTML = '<p style="color: #10b981;">Новых заявок нет.</p>';
             return;
         }
 
-        // Очищаем контейнер и рисуем карточки
         container.innerHTML = '';
         data.courses.forEach(course => {
             const card = document.createElement('div');
@@ -44,9 +42,7 @@ async function loadPendingCourses() {
     }
 }
 
-// Функция отправки решения на сервер
 async function moderateCourse(courseId, action) {
-    // Защита от случайного клика
     if (action === 'reject' && !confirm('Точно отклонить этот курс?')) return;
 
     try {
@@ -59,7 +55,6 @@ async function moderateCourse(courseId, action) {
         const data = await response.json();
         
         if (data.status === 'success') {
-            // Перезагружаем список заявок после успешного действия
             loadPendingCourses();
         } else {
             alert('Ошибка: ' + data.message);

@@ -56,17 +56,17 @@
             </div>
         </div>
 
-        <div id="adminMessage" style="margin-top: 20px; text-align: center; font-weight: bold;"></div>
+        
 
         <section class="admin-panel">
             <h2>Добавить новый курс</h2>
             <form id="addCourseForm">
                 <div class="form-group">
-                    <label for="title">Название курса</label>
+                    <label for="title" class="userInfo">Название курса</label>
                     <input type="text" id="title" required placeholder="Введите название курса" class="profileInput">
                 </div>
                 <div class="form-group">
-                    <label for="category">Категория</label>
+                    <label for="category" class="userInfo">Категория</label>
                     <select class="profileInput" id="category" required>
                         <option value="Python">Python</option>
                         <option value="C++">C++</option>
@@ -75,7 +75,7 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="type">Тип курса</label>
+                    <label for="type" class="userInfo">Тип курса</label>
                     <select class="profileInput" id="type" required>
                         <option value="online">Онлайн-формат</option>
                         <option value="offline">Офлайн-формат</option>
@@ -83,6 +83,8 @@
                 </div>
                 <button type="submit" class="button-changes">Добавить курс</button>
             </form>
+
+            <div id="adminMessage" style="margin-top: 20px; text-align: center; font-weight: bold;"></div>
         </section>
 
         <h1 class="coursesTitle" style="margin-top: 60px;">Онлайн-курсы</h1>
