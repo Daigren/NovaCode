@@ -11,9 +11,6 @@
     <script src="assets/js/admin.js" defer></script>
     
     <link rel="icon" type="image/svg+xml" href="assets/images/main.svg">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&display=swap" rel="stylesheet">
 </head>
 <body>
 
@@ -21,16 +18,16 @@
         <img src="./assets/images/iconHeader.svg" alt="icon">
         <a href="./index.html">Главная</a>
         <a href="./catalog.html">Курсы</a>
-        <a href="#" id="navProfileLink" style="opacity: 0; transition: opacity 0.3s ease;">Профиль</a>
+        <a href="#" id="navProfileLink">Профиль</a>
         <button id="consultation" onclick="window.location.href='./consultation.php';">
             консультация
         </button>
     </header>
 
     <main id="mainContent">
-        <div class="content-wrapper" style="max-width: 800px; margin: 0 auto; background: rgba(17,17,17,0.8); padding: 40px; border-radius: 12px; border: 1px solid var(--gray-700);">
-            <h2 style="color: var(--neon-cyan); margin-top: 0;">Заявки на публикацию</h2>
-            <p style="color: var(--text-secondary); margin-bottom: 30px;">Здесь отображаются курсы со статусом "pending".</p>
+        <div class="content-wrapper">
+            <h2>Заявки на публикацию</h2>
+            <p>Здесь отображаются курсы со статусом "pending".</p>
             
             <div id="pendingCoursesContainer">
                 <p>Загрузка данных...</p>

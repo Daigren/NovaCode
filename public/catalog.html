@@ -63,11 +63,11 @@
             <form id="addCourseForm">
                 <div class="form-group">
                     <label for="title">Название курса</label>
-                    <input type="text" id="title" required placeholder="Например: Основы алгоритмов">
+                    <input type="text" id="title" required placeholder="Введите название курса" class="profileInput">
                 </div>
                 <div class="form-group">
                     <label for="category">Категория</label>
-                    <select id="category" required>
+                    <select class="profileInput" id="category" required>
                         <option value="Python">Python</option>
                         <option value="C++">C++</option>
                         <option value="C#">C#</option>
@@ -76,12 +76,12 @@
                 </div>
                 <div class="form-group">
                     <label for="type">Тип курса</label>
-                    <select id="type" required>
+                    <select class="profileInput" id="type" required>
                         <option value="online">Онлайн-формат</option>
                         <option value="offline">Офлайн-формат</option>
                     </select>
                 </div>
-                <button type="submit" class="btn-submit">Добавить курс</button>
+                <button type="submit" class="button-changes">Добавить курс</button>
             </form>
         </section>
 

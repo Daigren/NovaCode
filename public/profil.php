@@ -106,24 +106,19 @@ $currentUser = $stmt->fetch();
                     </button>
                 </form>
 
-                <button onclick="window.location.href='logout.php';" class="btn-logout">
-                    Выйти
-                </button>
-
                 <?php if (isset($currentUser['role']) && $currentUser['role'] === 'admin'): ?>
-                    <div class="admin-panel-card" style="margin-top: 30px; padding: 25px; border: 1px solid var(--neon-cyan); border-radius: 12px; background: var(--neon-cyan-dim);">
-                        <h3 style="color: var(--neon-cyan); margin-top: 0; display: flex; align-items: center; gap: 10px;">
-                            <span class="neon-dot" style="display: inline-block; width: 10px; height: 10px; background: var(--neon-cyan); border-radius: 50%; box-shadow: 0 0 10px var(--neon-cyan);"></span>
-                            Режим разработчика
-                        </h3>
-                        <p style="color: var(--text-primary); margin-bottom: 20px;">
-                            У вас есть права администратора. Вы можете проверять новые курсы от пользователей и управлять каталогом.
-                        </p>
-                        <button onclick="window.location.href='admin.html'" style="background: var(--neon-cyan); color: #000; padding: 12px 24px; border: none; border-radius: 6px; font-size: 16px; font-weight: bold; cursor: pointer; transition: all 0.3s ease;">
+                    <div class="admin-panel-card">
+                        
+                        <button onclick="window.location.href='admin.html'" class="button-changes">
                             Открыть панель модерации
                         </button>
                     </div>
                 <?php endif; ?>
+
+                <button onclick="window.location.href='logout.php';" class="btn-logout">
+                    Выйти
+                </button>
+
             </section>
 
             <section id="myCoursesSection">

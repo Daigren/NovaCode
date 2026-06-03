@@ -101,6 +101,18 @@ header a:hover {
     background-position: center 10px;
 } */
 
+.admin-panel {
+    position: relative; 
+    margin: 0px 460px;
+    padding: 100px;
+    border: 1px solid #636363;
+    overflow: hidden;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 #mainContent {
     position: relative; 
     margin: 0px 460px;

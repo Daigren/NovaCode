@@ -32,8 +32,8 @@ async function loadPendingCourses() {
                     <strong>Автор:</strong> ${course.author_name}
                 </p>
                 <div style="margin-top: 15px; display: flex; gap: 10px;">
-                    <button onclick="moderateCourse(${course.id}, 'approve')" style="background: #10b981; color: white; border: none; padding: 8px 16px; border-radius: 4px; cursor: pointer;">Одобрить</button>
-                    <button onclick="moderateCourse(${course.id}, 'reject')" style="background: #ef4444; color: white; border: none; padding: 8px 16px; border-radius: 4px; cursor: pointer;">Отклонить</button>
+                    <button onclick="moderateCourse(${course.id}, 'approve')" class="button-changes">Одобрить</button>
+                    <button onclick="moderateCourse(${course.id}, 'reject')" class="button-changes">Отклонить</button>
                 </div>
             `;
             container.appendChild(card);
