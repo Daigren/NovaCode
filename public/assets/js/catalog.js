@@ -94,8 +94,6 @@ document.addEventListener("DOMContentLoaded", function() {
     fetchCourses();
 });
 
-// ГЛОБАЛЬНАЯ ФУНКЦИЯ ЗАПИСИ НА КУРС
-// (вынесена за пределы DOMContentLoaded, чтобы inline-обработчик onclick мог её найти)
 window.enrollCourse = async function(courseId) {
     try {
         const response = await fetch('../api/enroll.php', {
@@ -106,7 +104,7 @@ window.enrollCourse = async function(courseId) {
         const data = await response.json();
         
         if (data.status === 'success') {
-            alert('Ура! ' + data.message + ' Теперь он доступен в вашем профиле.');
+            alert('' + data.message + ' Теперь он доступен в вашем профиле.');
         } else {
             alert('Внимание: ' + data.message);
         }

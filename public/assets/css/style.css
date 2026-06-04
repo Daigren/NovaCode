@@ -256,6 +256,18 @@ header a:hover {
     text-align: center;
 }
 
+/* .myCourses {
+    background-color: #333;
+} */
+
+.my_courses_profil {
+    /* background-color: #333333; */
+    width: 400px;
+    border: 2px solid #727272;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
 #aiAdvisorSection {
     margin: 0px 460px;
     padding: 0px 100px;

@@ -22,19 +22,21 @@ document.addEventListener("DOMContentLoaded", async function() {
             const card = document.createElement('div');
             
             card.innerHTML = `
-                <div>
-                    <div>${course.category_name} • ${typeText}</div>
-                    <h3>${course.title}</h3>
+                <div class="my_courses_profil">
                     <div>
+                        <div>${course.category_name} • ${typeText}</div>
+                        <h3>${course.title}</h3>
                         <div>
-                            <div></div>
+                            <div>
+                                <div></div>
+                            </div>
+                            <span>${course.progress}%</span>
                         </div>
-                        <span>${course.progress}%</span>
                     </div>
+                    <button onclick="alert('Переход к материалам курса!')" class="button-changes">
+                        Продолжить
+                    </button>
                 </div>
-                <button onclick="alert('Переход к материалам курса!')">
-                    Продолжить
-                </button>
             `;
             container.appendChild(card);
         });
