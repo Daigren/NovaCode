@@ -226,6 +226,31 @@ header a:hover {
     transition: border-color 0.2s ease;
 }
 
+select.profileInput {
+    background-color: #000000;
+    color: #ffffff;
+    border: 2px solid #333;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>');
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 16px;
+    padding-right: 35px;
+    cursor: pointer;
+}
+
+select.profileInput:focus {
+    border: 2px solid #727272;
+}
+
+select.profileInput option {
+    background-color: #000000;
+    color: #ffffff;
+    padding: 10px;
+}
+
 .profileInput:focus {
     border: 2px solid #727272;
 }
@@ -380,9 +405,9 @@ video {
     top: 100%;
     right: 0;
     margin-top: 15px;
-    background-color: var(--bg-color, #000000);
-    border: 1px solid var(--border-color, #333333);
-    border-radius: 12px;
+    background-color: #000000;
+    border: 1px solid #ffffff;
+    border-radius: 5px;
     padding: 20px;
     width: 220px;
     z-index: 100;
@@ -468,21 +493,22 @@ video {
 
 /* Кнопка "≡ фильтры" */
 .filter-btn {
-    background-color: var(--gray-800);
-    border: 1px solid var(--gray-700);
-    color: var(--text-primary);
+    background-color: transparent;
+    border: 1px solid #ffffff;
+    color: #ffffff;
     height: 50px;
     padding: 0 20px;
-    border-radius: 8px;
+    border-radius: 5px;
     font-size: 16px;
     cursor: pointer;
-    transition: background-color 0.2s, border-color 0.2s;
+    transition: all 0.5s ease;
 }
 
 .filter-btn:hover {
-    background-color: var(--gray-700);
-    border-color: var(--text-secondary);
+    background-color: #ffffff;
+    color: #000000;
 }
+
 
 /* =========================== */
 
@@ -706,4 +732,17 @@ video {
 .btn-continue:hover {
     background-color: white;
     color: black;
+}
+
+.profileImage {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #333;
+    transition: all 0.3s ease;
+}
+
+.profileImage:hover {
+    border-color: #ffffff;
 }
