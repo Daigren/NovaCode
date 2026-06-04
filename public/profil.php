@@ -52,6 +52,7 @@ $currentUser = $stmt->fetch();
     <script src="assets/js/filter.js" defer></script>
     <script src="assets/js/avatar.js" defer></script>
     <script src="assets/js/my_courses.js" defer></script>
+    <script src="assets/js/animations.js" defer></script>
     
     <link rel="icon" type="image/svg+xml" href="assets/images/main.svg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -73,7 +74,7 @@ $currentUser = $stmt->fetch();
     </header>
 
     <main id="mainContentProfil">
-        <section class="mainContent_3">
+        <section class="mainContent_3 fade-element">
             <section id="profilContent">
                 <img src="./assets/images/avatar.svg" alt="profile" class="profileImage">
 

@@ -33,7 +33,7 @@
     <main>
         <div class="search-bar">
             <div class="container search-container">
-                <form action="catalog.php" method="GET" style="width: 100%; display: flex; gap: 20px; align-items: center;">
+                <form action="catalog.html" method="GET" style="width: 100%; display: flex; gap: 20px; align-items: center;">
                     <div class="search-input-wrapper" style="flex: 1;">
                         <span class="search-icon">
                             <img src="./assets/images/search.svg" alt="search">
@@ -66,7 +66,7 @@
                 <h1>NovaCode: Your Quantum Leap into IT</h1>
 
                 <div id="buttonsWrapper">
-                    <button class="view_courses" onclick="window.location.href='./catalog.php';">
+                    <button class="view_courses" onclick="window.location.href='./catalog.html';">
                         посмотреть курсы
                     </button>
                     
@@ -78,6 +78,28 @@
                 <h3 id="description">
                     Профессиональная экосистема для изучения современных технологий. Мы превращаем сложные концепции в понятный код, а новичков — в востребованных инженеров.
                 </h3>
+            </div>
+        </section>
+
+        <section id="aboutSection" class="fade-element">
+            <h2 style="font-family: 'Black Han Sans', sans-serif; font-size: 30px; margin-top: 0;">О платформе NovaCode</h2>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-top: 30px;">
+                <div>
+                    <h3 style="color: white;">ИИ-ментор</h3>
+                    <p style="color: var(--text-secondary);">Персональный помощник ответит на любые вопросы круглосуточно и поможет подобрать оптимальный курс для старта.</p>
+                </div>
+                <div>
+                    <h3 style="color: white;">Встроенная практика</h3>
+                    <p style="color: var(--text-secondary);">Тестируйте код прямо в браузере без установки дополнительных программ. Теория сразу подкрепляется практикой.</p>
+                </div>
+                <div>
+                    <h3 style="color: white;">Актуальные технологии</h3>
+                    <p style="color: var(--text-secondary);">Курсы по Python, Java, C++ и C# регулярно обновляются и соответствуют реальным требованиям рынка IT.</p>
+                </div>
+                <div>
+                    <h3 style="color: white;">Удобный формат</h3>
+                    <p style="color: var(--text-secondary);">Обучайтесь онлайн в собственном темпе или посещайте офлайн-занятия для максимального погружения в среду.</p>
+                </div>
             </div>
         </section>
 
@@ -105,6 +127,29 @@
         </section>
         
     </main>
+
+    <footer style="border-top: 1px solid var(--gray-700); padding: 40px 250px; margin-top: 60px; display: flex; flex-wrap: wrap; justify-content: space-between; color: var(--text-secondary); font-size: 14px; background: var(--bg-color);">
+        <div style="width: 30%;">
+            <h3 style="color: white; margin-top: 0; font-family: 'Black Han Sans', sans-serif; font-size: 24px;">NovaCode</h3>
+            <p>Профессиональная платформа для изучения программирования с поддержкой искусственного интеллекта.</p>
+        </div>
+        <div style="width: 20%;">
+            <h4 style="color: white; margin-top: 0;">Навигация</h4>
+            <ul style="list-style: none; padding: 0; margin: 0;">
+                <li style="margin-bottom: 8px;"><a href="./index.html" style="color: var(--text-secondary); text-decoration: none; transition: 0.3s;" onmouseover="this.style.color='white'" onmouseout="this.style.color='var(--text-secondary)'">Главная</a></li>
+                <li style="margin-bottom: 8px;"><a href="./catalog.html" style="color: var(--text-secondary); text-decoration: none; transition: 0.3s;" onmouseover="this.style.color='white'" onmouseout="this.style.color='var(--text-secondary)'">Курсы</a></li>
+                <li><a href="./consultation.php" style="color: var(--text-secondary); text-decoration: none; transition: 0.3s;" onmouseover="this.style.color='white'" onmouseout="this.style.color='var(--text-secondary)'">Консультация</a></li>
+            </ul>
+        </div>
+        <div style="width: 20%;">
+            <h4 style="color: white; margin-top: 0;">Контакты</h4>
+            <p style="margin: 0 0 8px 0;">Email: info@novacode.local</p>
+            <p style="margin: 0;">Телефон: +7 (999) 000-00-00</p>
+        </div>
+        <div style="width: 100%; text-align: center; margin-top: 40px; border-top: 1px solid var(--gray-700); padding-top: 20px;">
+            &copy; 2026 NovaCode. Все права защищены.
+        </div>
+    </footer>
 
 </body>
 </html>

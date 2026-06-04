@@ -16,10 +16,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $title = trim(htmlspecialchars($input['title'] ?? ''));
     $category_name = trim(htmlspecialchars($input['category'] ?? '')); 
     $type = trim(htmlspecialchars($input['type'] ?? ''));
+    $content = $input['content'] ?? '';
+    
     $author_id = $_SESSION['user_id'];
 
     if (empty($title) || empty($category_name) || empty($type)) {
-        echo json_encode(["status" => "error", "message" => "Заполните все поля"]);
+        echo json_encode(["status" => "error", "message" => "Заполните все обязательные поля"]);
         exit();
     }
 
@@ -33,15 +35,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             exit();
         }
 
-        $stmt = $pdo->prepare("INSERT INTO courses (author_id, category_id, title, type) VALUES (:author_id, :category_id, :title, :type)");
+        // Создаем курс с контентом из редактора и статусом pending
+        $stmt = $pdo->prepare("INSERT INTO courses (author_id, category_id, title, type, content, status) VALUES (:author_id, :category_id, :title, :type, :content, 'pending')");
         $stmt->execute([
             'author_id' => $author_id,
             'category_id' => $category['id'],
             'title' => $title,
-            'type' => $type
+            'type' => $type,
+            'content' => $content
         ]);
         
-        echo json_encode(["status" => "success", "message" => "Курс отправлен на проверку модератору!"]);
+        // Узнаем ID только что созданной записи в базе данных
+        $new_course_id = $pdo->lastInsertId();
+        
+        // Отправляем ID обратно в JavaScript
+        echo json_encode([
+            "status" => "success", 
+            "message" => "Курс создан! Переходим в редактор...", 
+            "course_id" => $new_course_id
+        ]);
     } catch (PDOException $e) {
         echo json_encode(["status" => "error", "message" => "Ошибка БД: " . $e->getMessage()]);
     }

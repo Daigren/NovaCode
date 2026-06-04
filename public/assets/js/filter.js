@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     if (filterBtn && filterMenu) {
         filterBtn.addEventListener('click', function() {
-            filterMenu.classList.toggle('active'); 
+            filterMenu.classList.toggle('show'); 
         });
     }
 });

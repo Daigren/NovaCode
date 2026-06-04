@@ -1,10 +1,21 @@
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", async function() {
     const onlineContainer = document.getElementById('onlineCoursesContainer');
     const offlineContainer = document.getElementById('offlineCoursesContainer');
     const searchInput = document.getElementById('searchInput');
     const categoryRadios = document.querySelectorAll('.category-radio');
     const addCourseForm = document.getElementById('addCourseForm');
     const adminMessage = document.getElementById('adminMessage');
+
+    let userRole = 'guest';
+    try {
+        const authRes = await fetch('../api/check_auth.php');
+        const authData = await authRes.json();
+        if (authData.logged_in) {
+            userRole = authData.role;
+        }
+    } catch (error) {
+        console.error("Ошибка проверки роли:", error);
+    }
 
     async function fetchCourses() {
         const query = searchInput.value;
@@ -35,14 +46,27 @@ document.addEventListener("DOMContentLoaded", function() {
         coursesArray.forEach(course => {
             const card = document.createElement('div');
             card.className = 'course-card fade-element visible'; 
+            
+            const editBtnHTML = userRole === 'admin' 
+                ? `<button onclick="window.location.href='editor.html?id=${course.id}'" style="margin-top: 10px; width: 100%; padding: 10px; background: transparent; color: white; border: 1px solid #ffffff; border-radius: 5px; font-weight: bold; cursor: pointer; font-size: 13px; transition: all 0.5s ease;" onmouseover="this.style.backgroundColor='white';this.style.color='black'" onmouseout="this.style.backgroundColor='transparent';this.style.color='white'">
+                    Редактировать
+                   </button>`
+                : '';
+
             card.innerHTML = `
                 <div class="course-badge">${course.category}</div>
                 <h3 class="course-title">${course.title}</h3>
                 <div class="course-meta">${metaText}</div>
+
+                <button onclick="window.location.href='view.html?id=${course.id}'" style="margin-top: 10px; width: 100%; padding: 10px; background: transparent; color: white; border: 1px solid #ffffff; border-radius: 5px; font-weight: bold; cursor: pointer; font-size: 13px; transition: all 0.5s ease;" onmouseover="this.style.backgroundColor='white';this.style.color='black'" onmouseout="this.style.backgroundColor='transparent';this.style.color='white'">
+                    Читать материал
+                </button>
                 
-                <button onclick="enrollCourse(${course.id})" style="margin-top: 15px; width: 100%; padding: 10px; background: var(--neon-cyan); color: #000; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; transition: 0.3s;">
+                <button onclick="enrollCourse(${course.id})" style="margin-top: 10px; width: 100%; padding: 10px; background: transparent; color: white; border: 1px solid #ffffff; border-radius: 5px; font-weight: bold; cursor: pointer; font-size: 13px; transition: all 0.5s ease;" onmouseover="this.style.backgroundColor='white';this.style.color='black'" onmouseout="this.style.backgroundColor='transparent';this.style.color='white'">
                     Записаться
                 </button>
+                
+                ${editBtnHTML}
             `;
             container.appendChild(card);
         });
@@ -52,15 +76,17 @@ document.addEventListener("DOMContentLoaded", function() {
         addCourseForm.addEventListener('submit', async function(e) {
             e.preventDefault();
 
+            // Сбор данных
             const title = document.getElementById('title').value;
             const category = document.getElementById('category').value;
             const type = document.getElementById('type').value;
+            const content = document.getElementById('courseContent').value;
 
             try {
                 const response = await fetch('../api/courses.php', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ title, category, type })
+                    body: JSON.stringify({ title, category, type, content }) 
                 });
 
                 const data = await response.json();
@@ -68,8 +94,21 @@ document.addEventListener("DOMContentLoaded", function() {
                 if (data.status === 'success') {
                     adminMessage.style.color = 'var(--neon-cyan)';
                     adminMessage.innerText = data.message;
-                    addCourseForm.reset(); 
-                    fetchCourses(); 
+                    addCourseForm.reset();
+
+                    // Сбросить инлайн-редактор
+                    const inlineMdInput = document.getElementById('inlineMdInput');
+                    const inlineMdPreview = document.getElementById('inlineMdPreview');
+                    const inlineEditorSection = document.getElementById('inlineEditorSection');
+                    if (inlineMdInput) inlineMdInput.value = '';
+                    if (inlineMdPreview) inlineMdPreview.innerHTML = '';
+                    if (inlineEditorSection) inlineEditorSection.style.display = 'none';
+                    document.getElementById('courseContent').value = '';
+
+                    setTimeout(() => {
+                        fetchCourses();
+                    }, 1000);
+
                 } else {
                     adminMessage.style.color = '#ff4444';
                     adminMessage.innerText = data.message;
@@ -104,7 +143,7 @@ window.enrollCourse = async function(courseId) {
         const data = await response.json();
         
         if (data.status === 'success') {
-            alert('' + data.message + ' Теперь он доступен в вашем профиле.');
+            alert('Ура! ' + data.message + ' Теперь он доступен в вашем профиле.');
         } else {
             alert('Внимание: ' + data.message);
         }

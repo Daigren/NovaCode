@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Редактор курса - NovaCode</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="assets/js/animations.js" defer></script>
+    <style>
+        body::before, body::after {
+            display: none !important;
+        }
+        body {
+            background-color: #000000 !important;
+            background: #000000 !important;
+        }
+        .editor-container {
+            position: relative;
+            height: 70vh;
+            margin-top: 20px;
+        }
+        #mdInput, #mdPreview {
+            width: 100%;
+            height: 100%;
+            background: #000000;
+            color: #fff;
+            border: 1px solid var(--gray-700);
+            padding: 15px;
+            font-family: monospace;
+            resize: none;
+            border-radius: 8px;
+            box-sizing: border-box;
+        }
+        #mdPreview {
+            overflow-y: auto;
+            color: #ddd;
+            display: none;
+        }
+        .controls {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body style="background: #000000; color: white; padding: 40px;">
+
+    <button onclick="history.back()" class="fade-element" style="background: transparent; color: white; border: 1px solid #ffffff; border-radius: 5px; font-size: 13px; padding: 8px 20px; cursor: pointer; transition: all 0.5s ease; margin-bottom: 20px;" onmouseover="this.style.backgroundColor='white';this.style.color='black'" onmouseout="this.style.backgroundColor='transparent';this.style.color='white'">
+        ← Назад
+    </button>
+
+    <h2 id="courseTitle" class="fade-element">Загрузка курса...</h2>
+
+    <div class="controls fade-element">
+        <input type="file" id="fileInput" accept=".md" style="display: none;">
+        <button id="previewBtn" style="background: transparent; color: white; border: 1px solid #ffffff; border-radius: 5px; font-weight: bold; font-size: 13px; padding: 10px 20px; cursor: pointer; transition: all 0.5s ease;" onmouseover="this.style.backgroundColor='white';this.style.color='black'" onmouseout="this.style.backgroundColor='transparent';this.style.color='white'">
+            Предпросмотр
+        </button>
+
+        <button onclick="document.getElementById('fileInput').click()" style="background: transparent; color: white; border: 1px solid #ffffff; border-radius: 5px; font-weight: bold; font-size: 13px; padding: 10px 20px; cursor: pointer; transition: all 0.5s ease;" onmouseover="this.style.backgroundColor='white';this.style.color='black'" onmouseout="this.style.backgroundColor='transparent';this.style.color='white'">
+            Загрузить .md файл
+        </button>
+        
+        <button id="saveBtn" style="background: transparent; color: white; border: 1px solid #ffffff; border-radius: 5px; font-weight: bold; font-size: 13px; padding: 10px 20px; cursor: pointer; transition: all 0.5s ease;" onmouseover="this.style.backgroundColor='white';this.style.color='black'" onmouseout="this.style.backgroundColor='transparent';this.style.color='white'">
+            Сохранить изменения
+        </button>
+        <span id="saveStatus" style="align-self: center; color: var(--neon-cyan);"></span>
+    </div>
+
+    <div class="editor-container fade-element">
+
+        <textarea id="mdInput" placeholder="Пишите Markdown код здесь..."></textarea>
+        <div id="mdPreview"></div>
+    </div>
+
+    <script>
+        // Получаем ID курса из URL (например: editor.html?id=5)
+        const urlParams = new URLSearchParams(window.location.search);
+        const courseId = urlParams.get('id');
+
+        const mdInput = document.getElementById('mdInput');
+        const mdPreview = document.getElementById('mdPreview');
+        const fileInput = document.getElementById('fileInput');
+        const saveBtn = document.getElementById('saveBtn');
+        const previewBtn = document.getElementById('previewBtn');
+        let previewMode = false;
+
+        // 1. Отрисовка превью при вводе текста
+        mdInput.addEventListener('input', () => {
+            mdPreview.innerHTML = marked.parse(mdInput.value);
+        });
+
+        // Toggle preview/edit mode
+        previewBtn.addEventListener('click', () => {
+            previewMode = !previewMode;
+            if (previewMode) {
+                mdPreview.innerHTML = marked.parse(mdInput.value);
+                mdInput.style.display = 'none';
+                mdPreview.style.display = 'block';
+                previewBtn.textContent = 'Редактировать';
+            } else {
+                mdInput.style.display = 'block';
+                mdPreview.style.display = 'none';
+                previewBtn.textContent = 'Предпросмотр';
+            }
+        });
+
+        // 2. Чтение .md файла с компьютера
+        fileInput.addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                mdInput.value = e.target.result; // Вставляем текст файла в поле
+                mdPreview.innerHTML = marked.parse(mdInput.value); // Обновляем превью
+            };
+            reader.readAsText(file);
+        });
+
+        // 3. Загрузка текущего контента с сервера
+        async function loadContent() {
+            if (!courseId) {
+                document.getElementById('courseTitle').innerText = 'Ошибка: ID курса не указан';
+                return;
+            }
+            const response = await fetch(`../api/editor.php?id=${courseId}`);
+            const data = await response.json();
+            
+            if (data.status === 'success') {
+                document.getElementById('courseTitle').innerText = `Редактирование: ${data.course.title}`;
+                if (data.course.content) {
+                    mdInput.value = data.course.content;
+                    mdPreview.innerHTML = marked.parse(data.course.content);
+                }
+            }
+        }
+
+        // 4. Сохранение на сервер
+        saveBtn.addEventListener('click', async () => {
+            const status = document.getElementById('saveStatus');
+            status.innerText = 'Сохранение...';
+
+            const response = await fetch('../api/editor.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ course_id: courseId, content: mdInput.value })
+            });
+            const data = await response.json();
+
+            status.innerText = data.message;
+            status.style.color = data.status === 'success' ? 'var(--neon-cyan)' : '#ff4444';
+            setTimeout(() => status.innerText = '', 3000);
+        });
+
+        loadContent();
+    </script>
+</body>
+</html>

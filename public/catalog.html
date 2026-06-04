@@ -10,6 +10,8 @@
     <script src="assets/js/header.js" defer></script>
     <script src="assets/js/catalog.js" defer></script>
     <script src="assets/js/filter.js" defer></script>
+    <script src="assets/js/animations.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     
     <link rel="icon" type="image/svg+xml" href="assets/images/main.svg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -58,7 +60,7 @@
 
         
 
-        <section class="admin-panel">
+        <section class="admin-panel fade-element">
             <h2>Добавить новый курс</h2>
             <form id="addCourseForm">
                 <div class="form-group">
@@ -81,19 +83,115 @@
                         <option value="offline">Офлайн-формат</option>
                     </select>
                 </div>
+
+                <input type="hidden" id="courseContent" value="">
+
+                <button type="button" id="openEditorBtn" style="width: 100%; margin-top: 15px; margin-bottom: 15px; background: transparent; color: white; border: 1px solid #ffffff; border-radius: 5px; padding: 10px; cursor: pointer; font-weight: bold; font-size: 13px; transition: all 0.5s ease;" onmouseover="this.style.backgroundColor='white';this.style.color='black'" onmouseout="this.style.backgroundColor='transparent';this.style.color='white'">
+                    Открыть редактор материалов
+                </button>
+
+                <div id="inlineEditorSection" style="display: none; width: 100%; margin-bottom: 15px;">
+                    <div style="display: flex; gap: 10px; margin-bottom: 10px;">
+                        <button type="button" id="previewToggleBtn" style="background: transparent; color: white; border: 1px solid #ffffff; border-radius: 5px; padding: 7px 18px; cursor: pointer; font-size: 13px; transition: all 0.5s ease;" onmouseover="this.style.backgroundColor='white';this.style.color='black'" onmouseout="this.style.backgroundColor='transparent';this.style.color='white'">
+                            Предпросмотр
+                        </button>
+                        <label style="background: transparent; color: white; border: 1px solid #ffffff; border-radius: 5px; padding: 7px 18px; cursor: pointer; font-size: 13px; transition: all 0.5s ease; display: inline-flex; align-items: center;" onmouseover="this.style.backgroundColor='white';this.style.color='black'" onmouseout="this.style.backgroundColor='transparent';this.style.color='white'">
+                            Загрузить .md файл
+                            <input type="file" id="inlineFileInput" accept=".md,.txt,.markdown" style="display: none;">
+                        </label>
+                    </div>
+                    <textarea id="inlineMdInput" placeholder="Пишите Markdown код здесь..." style="width: 100%; height: 60vh; background: var(--gray-800); color: #fff; border: 1px solid var(--gray-700); padding: 15px; font-family: monospace; font-size: 14px; resize: none; border-radius: 8px; line-height: 1.6;"></textarea>
+                    <div id="inlineMdPreview" style="display: none; width: 100%; min-height: 60vh; background: #0a0a0a; border: 1px solid var(--gray-700); padding: 20px; border-radius: 8px; overflow-y: auto; color: #ddd; line-height: 1.6;"></div>
+                </div>
+
                 <button type="submit" class="button-changes">Добавить курс</button>
             </form>
 
             <div id="adminMessage" style="margin-top: 20px; text-align: center; font-weight: bold;"></div>
         </section>
 
-        <h1 class="coursesTitle" style="margin-top: 60px;">Онлайн-курсы</h1>
-        <section id="onlineCoursesContainer" class="mainContent_2"></section>
+        <h1 class="coursesTitle fade-element" style="margin-top: 60px;">Онлайн-курсы</h1>
+        <section id="onlineCoursesContainer" class="mainContent_2 fade-element"></section>
 
-        <h1 class="coursesTitle">Офлайн-курсы</h1>
-        <section id="offlineCoursesContainer" class="mainContent_2"></section>
+        <h1 class="coursesTitle fade-element">Офлайн-курсы</h1>
+        <section id="offlineCoursesContainer" class="mainContent_2 fade-element"></section>
+
 
     </main>
 
+    <footer style="border-top: 1px solid var(--gray-700); padding: 40px 250px; margin-top: 60px; display: flex; flex-wrap: wrap; justify-content: space-between; color: var(--text-secondary); font-size: 14px; background: var(--bg-color);">
+        <div style="width: 30%;">
+            <h3 style="color: white; margin-top: 0; font-family: 'Black Han Sans', sans-serif; font-size: 24px;">NovaCode</h3>
+            <p>Профессиональная платформа для изучения программирования с поддержкой искусственного интеллекта.</p>
+        </div>
+        <div style="width: 20%;">
+            <h4 style="color: white; margin-top: 0;">Навигация</h4>
+            <ul style="list-style: none; padding: 0; margin: 0;">
+                <li style="margin-bottom: 8px;"><a href="./index.html" style="color: var(--text-secondary); text-decoration: none; transition: 0.3s;" onmouseover="this.style.color='white'" onmouseout="this.style.color='var(--text-secondary)'">Главная</a></li>
+                <li style="margin-bottom: 8px;"><a href="./catalog.html" style="color: var(--text-secondary); text-decoration: none; transition: 0.3s;" onmouseover="this.style.color='white'" onmouseout="this.style.color='var(--text-secondary)'">Курсы</a></li>
+                <li><a href="./consultation.php" style="color: var(--text-secondary); text-decoration: none; transition: 0.3s;" onmouseover="this.style.color='white'" onmouseout="this.style.color='var(--text-secondary)'">Консультация</a></li>
+            </ul>
+        </div>
+        <div style="width: 20%;">
+            <h4 style="color: white; margin-top: 0;">Контакты</h4>
+            <p style="margin: 0 0 8px 0;">Email: info@novacode.local</p>
+            <p style="margin: 0;">Телефон: +7 (999) 000-00-00</p>
+        </div>
+        <div style="width: 100%; text-align: center; margin-top: 40px; border-top: 1px solid var(--gray-700); padding-top: 20px;">
+            &copy; 2026 NovaCode. Все права защищены.
+        </div>
+    </footer>
+
+    <script>
+        // Inline editor toggle
+        const openEditorBtn = document.getElementById('openEditorBtn');
+        const inlineEditorSection = document.getElementById('inlineEditorSection');
+        const inlineMdInput = document.getElementById('inlineMdInput');
+        const inlineMdPreview = document.getElementById('inlineMdPreview');
+        const courseContentField = document.getElementById('courseContent');
+        const previewToggleBtn = document.getElementById('previewToggleBtn');
+        const inlineFileInput = document.getElementById('inlineFileInput');
+        let editorOpen = false;
+        let previewMode = false;
+
+        openEditorBtn.addEventListener('click', () => {
+            editorOpen = !editorOpen;
+            inlineEditorSection.style.display = editorOpen ? 'block' : 'none';
+            openEditorBtn.textContent = editorOpen ? 'Скрыть редактор' : 'Открыть редактор материалов';
+        });
+
+        // Preview toggle
+        previewToggleBtn.addEventListener('click', () => {
+            previewMode = !previewMode;
+            if (previewMode) {
+                inlineMdPreview.innerHTML = marked.parse(inlineMdInput.value);
+                inlineMdInput.style.display = 'none';
+                inlineMdPreview.style.display = 'block';
+                previewToggleBtn.textContent = 'Редактировать';
+            } else {
+                inlineMdInput.style.display = 'block';
+                inlineMdPreview.style.display = 'none';
+                previewToggleBtn.textContent = 'Предпросмотр';
+            }
+        });
+
+        // Sync content to hidden field
+        inlineMdInput.addEventListener('input', () => {
+            courseContentField.value = inlineMdInput.value;
+        });
+
+        // .md file upload
+        inlineFileInput.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = (ev) => {
+                inlineMdInput.value = ev.target.result;
+                courseContentField.value = ev.target.result;
+            };
+            reader.readAsText(file);
+            inlineFileInput.value = '';
+        });
+    </script>
 </body>
 </html>

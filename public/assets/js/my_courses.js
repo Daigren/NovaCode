@@ -33,7 +33,7 @@ document.addEventListener("DOMContentLoaded", async function() {
                             <span>${course.progress}%</span>
                         </div>
                     </div>
-                    <button onclick="alert('Переход к материалам курса!')" class="button-changes">
+                    <button onclick="window.location.href='view.html?id=${course.id}'" class="btn-continue">
                         Продолжить
                     </button>
                 </div>

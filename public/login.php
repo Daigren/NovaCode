@@ -75,7 +75,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
     </header>
 
     <main class="auth-container">
-        <section class="authorization">
+        <section class="authorization fade-element">
             <h2>Вход в аккаунт</h2>
 
             <?php if (!empty($error_message)): ?>
