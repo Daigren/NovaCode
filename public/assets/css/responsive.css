@@ -1,0 +1,633 @@
+/* ============================================
+   RESPONSIVE DESIGN — NovaCode
+   Breakpoints:
+     • Desktop:  > 1200px (default styles)
+     • Laptop:   1024–1200px
+     • Tablet:   768–1024px
+     • Mobile L: 480–768px
+     • Mobile S: < 480px
+   ============================================ */
+
+/* ─── Hamburger Button (hidden on desktop) ─── */
+.hamburger-btn {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    z-index: 1100;
+    position: relative;
+}
+
+.hamburger-btn span {
+    display: block;
+    width: 24px;
+    height: 2px;
+    background-color: #ffffff;
+    border-radius: 2px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transform-origin: center;
+}
+
+/* Animated X when open */
+.hamburger-btn.active span:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+}
+
+.hamburger-btn.active span:nth-child(2) {
+    opacity: 0;
+    transform: scaleX(0);
+}
+
+.hamburger-btn.active span:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+}
+
+/* ─── Mobile Navigation Overlay ─── */
+.mobile-nav-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(4px);
+    z-index: 999;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+.mobile-nav-overlay.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* ─── Mobile Slide-in Menu ─── */
+.mobile-nav {
+    display: none;
+    position: fixed;
+    top: 0;
+    right: -320px;
+    width: 280px;
+    height: 100vh;
+    visibility: hidden;
+    background: #0a0a0a;
+    border-left: 1px solid #333;
+    z-index: 1050;
+    flex-direction: column;
+    padding: 100px 30px 40px;
+    gap: 8px;
+    transition: right 0.35s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.35s;
+    overflow-y: auto;
+    pointer-events: none;
+}
+
+.mobile-nav.active {
+    right: 0;
+    pointer-events: auto;
+    visibility: visible;
+}
+
+.mobile-nav a {
+    text-decoration: none;
+    color: #ffffff;
+    font-size: 18px;
+    padding: 14px 0;
+    border-bottom: 1px solid #1a1a1a;
+    transition: color 0.2s, padding-left 0.2s;
+}
+
+.mobile-nav a:hover {
+    color: var(--neon-cyan);
+    padding-left: 8px;
+}
+
+.mobile-nav .mobile-consultation-btn {
+    margin-top: 16px;
+    background-color: transparent;
+    border: 1px solid #ffffff;
+    border-radius: 5px;
+    color: white;
+    font-size: 16px;
+    padding: 12px 20px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    display: block;
+}
+
+.mobile-nav .mobile-consultation-btn:hover {
+    background-color: #ffffff;
+    color: #000000;
+}
+
+
+/* ──────────────────────────────────────────────
+   ≤ 1200px  —  LAPTOP
+   ────────────────────────────────────────────── */
+@media (max-width: 1200px) {
+    header {
+        padding: 0 60px !important;
+    }
+
+    #mainContent,
+    .mainContent_2,
+    #aboutSection,
+    #aiAdvisorSection,
+    .admin-panel {
+        margin-left: 120px !important;
+        margin-right: 120px !important;
+    }
+
+    .mainContent_3,
+    .authorization {
+        margin-left: 120px !important;
+        margin-right: 120px !important;
+    }
+
+    footer {
+        padding-left: 60px !important;
+        padding-right: 60px !important;
+    }
+
+    #description {
+        width: 100% !important;
+        max-width: 600px;
+    }
+
+    #buttonsWrapper {
+        margin-top: 100px;
+    }
+}
+
+
+/* ──────────────────────────────────────────────
+   ≤ 1024px  —  TABLET LANDSCAPE
+   ────────────────────────────────────────────── */
+@media (max-width: 1024px) {
+    /* Show hamburger, hide nav links */
+    .hamburger-btn {
+        display: flex;
+    }
+
+    .mobile-nav,
+    .mobile-nav-overlay {
+        display: flex;
+    }
+
+    header {
+        padding: 0 24px !important;
+        font-size: 18px !important;
+    }
+
+    header > a,
+    header > #consultation {
+        display: none !important;
+    }
+
+    #mainContent,
+    .mainContent_2,
+    #aboutSection,
+    #aiAdvisorSection,
+    .admin-panel {
+        margin-left: 40px !important;
+        margin-right: 40px !important;
+        padding: 60px !important;
+    }
+
+    .mainContent_3,
+    .authorization {
+        margin-left: 40px !important;
+        margin-right: 40px !important;
+        padding: 60px !important;
+    }
+
+    footer {
+        padding-left: 40px !important;
+        padding-right: 40px !important;
+    }
+
+    /* About section grid */
+    #aboutSection div[style*="grid-template-columns"] {
+        grid-template-columns: 1fr 1fr !important;
+    }
+
+    /* Video section */
+    #videoSection {
+        flex-direction: column;
+        gap: 30px;
+    }
+
+    #videoSection p {
+        margin-left: 0 !important;
+    }
+
+    video {
+        width: 100%;
+    }
+
+    #buttonsWrapper {
+        margin-top: 80px;
+        gap: 20px;
+    }
+
+    #description {
+        width: 100% !important;
+        margin-top: 100px !important;
+    }
+
+    /* Chat window */
+    .chat-messages {
+        height: 400px;
+    }
+
+    .ai-chat-window {
+        max-width: 100%;
+    }
+}
+
+
+/* ──────────────────────────────────────────────
+   ≤ 768px  —  TABLET PORTRAIT / LARGE MOBILE
+   ────────────────────────────────────────────── */
+@media (max-width: 768px) {
+    header {
+        height: 65px !important;
+        padding: 0 16px !important;
+    }
+
+    #mainContent,
+    .mainContent_2,
+    #aboutSection,
+    #aiAdvisorSection,
+    .admin-panel {
+        margin-left: 16px !important;
+        margin-right: 16px !important;
+        padding: 40px 24px !important;
+    }
+
+    .mainContent_3 {
+        margin-left: 16px !important;
+        margin-right: 16px !important;
+        padding: 40px 24px !important;
+        flex-direction: column;
+        gap: 30px;
+    }
+
+    .authorization {
+        margin-left: 16px !important;
+        margin-right: 16px !important;
+        padding: 40px 24px !important;
+    }
+
+    /* Profile layout */
+    #profilContent {
+        width: 100% !important;
+    }
+
+    .profileInput,
+    .bioInput {
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+    }
+
+    .my_courses_profil {
+        width: 100% !important;
+        box-sizing: border-box;
+    }
+
+    /* About section: 1 column */
+    #aboutSection div[style*="grid-template-columns"] {
+        grid-template-columns: 1fr !important;
+        gap: 20px !important;
+    }
+
+    /* Hero section */
+    #mainContent h1 {
+        font-size: 28px !important;
+    }
+
+    #description {
+        font-size: 18px !important;
+        width: 100% !important;
+        margin-top: 60px !important;
+    }
+
+    #buttonsWrapper {
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+        margin-top: 60px;
+    }
+
+    .consultation_2,
+    .consultation_3,
+    .view_courses {
+        font-size: 18px !important;
+        padding: 10px 30px !important;
+        width: 100%;
+        max-width: 300px;
+        text-align: center;
+    }
+
+    .consultation_3 {
+        margin-left: 0 !important;
+    }
+
+    /* Search bar */
+    .search-bar {
+        padding: 20px 16px !important;
+    }
+
+    .search-container {
+        max-width: 100%;
+    }
+
+    .search-bar form,
+    .search-bar form[style] {
+        flex-direction: column !important;
+        gap: 12px !important;
+    }
+
+    .search-input-wrapper {
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .filter-btn {
+        width: 100%;
+    }
+
+    /* Footer */
+    footer {
+        padding: 30px 16px !important;
+        flex-direction: column !important;
+        gap: 30px;
+    }
+
+    footer > div {
+        width: 100% !important;
+    }
+
+    footer > div[style*="text-align: center"] {
+        margin-top: 20px !important;
+    }
+
+    /* Section titles */
+    .coursesTitle {
+        font-size: 24px !important;
+        padding-left: 12px;
+        margin-left: 16px;
+        margin-right: 16px;
+    }
+
+    /* Chat */
+    .chat-messages {
+        height: 350px;
+        padding: 16px;
+    }
+
+    .ai-advisor-section {
+        padding: 30px 16px;
+    }
+
+    /* AI advisor heading */
+    #ai-advisor {
+        font-size: 24px !important;
+        margin-top: 40px !important;
+    }
+
+    /* Video section */
+    #videoSection {
+        margin-top: 30px;
+        margin-bottom: 50px;
+    }
+
+    /* Admin panel form inputs */
+    .admin-panel .profileInput,
+    .admin-panel select.profileInput {
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+    }
+
+    .admin-panel .form-group {
+        width: 100%;
+    }
+
+    .admin-panel form {
+        width: 100% !important;
+    }
+
+    /* View page */
+    body[style*="max-width: 900px"] {
+        padding: 20px 16px !important;
+    }
+
+    .course-content {
+        padding: 20px !important;
+    }
+
+    /* Editor page */
+    .controls {
+        flex-wrap: wrap;
+    }
+
+    .editor-container {
+        height: 50vh !important;
+    }
+}
+
+
+/* ──────────────────────────────────────────────
+   ≤ 480px  —  SMALL MOBILE
+   ────────────────────────────────────────────── */
+@media (max-width: 480px) {
+    header {
+        height: 56px !important;
+        padding: 0 12px !important;
+    }
+
+    #mainContent,
+    .mainContent_2,
+    #aboutSection,
+    #aiAdvisorSection,
+    .admin-panel {
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        padding: 30px 16px !important;
+        border-left: none !important;
+        border-right: none !important;
+    }
+
+    .mainContent_3 {
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        padding: 30px 16px !important;
+        border-left: none !important;
+        border-right: none !important;
+    }
+
+    .authorization {
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        padding: 30px 16px !important;
+        border-left: none !important;
+        border-right: none !important;
+    }
+
+    #mainContent h1 {
+        font-size: 22px !important;
+    }
+
+    #description {
+        font-size: 16px !important;
+        margin-top: 40px !important;
+    }
+
+    #buttonsWrapper {
+        margin-top: 40px;
+    }
+
+    .consultation_2,
+    .consultation_3,
+    .view_courses {
+        font-size: 16px !important;
+        padding: 10px 20px !important;
+    }
+
+    /* Chat */
+    .chat-messages {
+        height: 300px;
+        padding: 12px;
+    }
+
+    .message {
+        max-width: 90%;
+        font-size: 0.9rem;
+    }
+
+    .chat-input-area {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .btn-send {
+        width: 100%;
+        text-align: center;
+    }
+
+    /* Search */
+    .search-bar {
+        padding: 16px 12px !important;
+    }
+
+    /* Footer */
+    footer {
+        padding: 24px 12px !important;
+        font-size: 13px !important;
+    }
+
+    /* Buttons */
+    .button-changes {
+        width: 100% !important;
+    }
+
+    /* Section titles */
+    .coursesTitle {
+        font-size: 20px !important;
+        margin-left: 12px;
+        margin-right: 12px;
+    }
+
+    #ai-advisor {
+        font-size: 20px !important;
+        margin-top: 20px !important;
+    }
+
+    /* Profile image */
+    .profileImage {
+        width: 120px;
+        height: 120px;
+    }
+
+    /* Fix inline editor */
+    #inlineMdInput,
+    #inlineMdPreview {
+        height: 40vh !important;
+        min-height: 40vh !important;
+    }
+
+    /* About section heading */
+    #aboutSection h2 {
+        font-size: 24px !important;
+    }
+
+    /* Courses Title on about section */
+    #aboutSection h3 {
+        font-size: 16px !important;
+    }
+}
+
+
+/* ──────────────────────────────────────────────
+   ≤ 360px  —  VERY SMALL DEVICES
+   ────────────────────────────────────────────── */
+@media (max-width: 360px) {
+    #mainContent h1 {
+        font-size: 20px !important;
+    }
+
+    #description {
+        font-size: 14px !important;
+    }
+
+    .consultation_2,
+    .consultation_3,
+    .view_courses {
+        font-size: 14px !important;
+        padding: 8px 16px !important;
+    }
+
+    .chat-messages {
+        height: 250px;
+    }
+
+    .mobile-nav {
+        width: 250px;
+        padding: 90px 24px 30px;
+    }
+}
+
+
+/* ──────────────────────────────────────────────
+   Landscape orientation on phones
+   ────────────────────────────────────────────── */
+@media (max-height: 500px) and (orientation: landscape) {
+    .chat-messages {
+        height: 200px;
+    }
+
+    #buttonsWrapper {
+        margin-top: 30px;
+    }
+
+    #description {
+        margin-top: 30px !important;
+    }
+
+    .mobile-nav {
+        padding-top: 70px;
+        gap: 4px;
+    }
+
+    .mobile-nav a {
+        font-size: 16px;
+        padding: 10px 0;
+    }
+}

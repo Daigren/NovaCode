@@ -53,6 +53,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['register'])) {
     <title>NovaCode - Регистрация</title>
     <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
     <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/responsive.css">
+    <script src="assets/js/header.js" defer></script>
     <script src="assets/js/filter.js" defer></script>
     <script src="assets/js/auth.js" defer></script>
     <script src="assets/js/animations.js" defer></script>
